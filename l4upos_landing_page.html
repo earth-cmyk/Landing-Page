@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L4UPOS - Your Entire Restaurant, Managed on One Screen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap');
+        body { font-family: 'Kanit', sans-serif; background-color: #fcfaf7; color: #333; }
+        .chart-container { position: relative; width: 100%; max-width: 600px; margin-left: auto; margin-right: auto; height: 300px; max-height: 400px; }
+        .tab-active { border-bottom: 4px solid #d97706; color: #d97706; font-weight: 600; }
+        .gradient-bg { background: linear-gradient(135deg, #fffcf5 0%, #fef3c7 100%); }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Chosen Palette: Warm Neutral & Amber Sunset (Grounding and Trustworthy) -->
+    <!-- Application Structure Plan: เน้นโครงสร้างแบบ One-Page Sales Funnel เริ่มจากดึงดูด (Hero) -> ขยี้ปัญหา (Pain Points) -> นำเสนอทางแก้ (Solution) -> เปรียบเทียบผลประโยชน์ (Comparison/Chart) -> ราคา (Pricing) และจบที่การจัดการข้อโต้แย้ง (FAQ) เพื่อปิดการขายผ่าน Lead Form -->
+    <!-- Visualization & Content Choices: 
+        1. ใช้ Chart.js แสดงความคุ้มค่าของการสั่งตรงเทียบกับเดลิเวอรี (Compare Goal)
+        2. ใช้ Interactive Tabs สำหรับเลือกดูแพ็กเกจราคา 
+        3. ใช้ Accordion สำหรับ FAQ (Organize Goal)
+        4. ใช้ Feature Grid พร้อมไอคอน Unicode เพื่อความรวดเร็วและสะอาดตา
+        CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. 
+    -->
+
+    <nav class="sticky top-0 bg-white/90 backdrop-blur-md shadow-sm z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-amber-700 tracking-tight">L4U<span class="text-gray-800">POS</span></div>
+            <div class="hidden md:flex space-x-8 text-sm font-medium">
+                <a href="#features" class="hover:text-amber-600 transition">ฟีเจอร์</a>
+                <a href="#comparison" class="hover:text-amber-600 transition">เปรียบเทียบ</a>
+                <a href="#pricing" class="hover:text-amber-600 transition">ราคา</a>
+                <a href="#faq" class="hover:text-amber-600 transition">คำถามที่พบบ่อย</a>
+            </div>
+            <button onclick="scrollToContact()" class="bg-amber-600 text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-amber-700 transition">ขอ Demo ฟรี</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="pt-20 pb-16 px-6 gradient-bg">
+        <div class="max-w-4xl mx-auto text-center">
+            <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">The Ultimate Restaurant OS</span>
+            <h1 class="text-4xl md:text-6xl font-bold mt-6 mb-4 leading-tight text-gray-900">Your Entire Restaurant,<br><span class="text-amber-600">Managed on One Screen.</span></h1>
+            <p class="text-lg md:text-xl text-gray-600 mb-10 leading-relaxed">
+                หมดยุค POS ธรรมดาที่แยกหน้าจอวุ่นวาย! รวมระบบสั่งอาหารออนไลน์, KDS ในครัว, และเดลิเวอรีไว้ที่เดียว <br class="hidden md:block"> ออกแบบเพื่อร้านอาหารไทยใน ออสเตรเลีย, สหรัฐฯ และอังกฤษ โดยเฉพาะ
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <button onclick="scrollToContact()" class="bg-gray-900 text-white px-8 py-4 rounded-xl text-lg font-bold hover:scale-105 transition shadow-lg">เริ่มใช้งานวันนี้</button>
+                <div class="flex items-center space-x-2 text-sm text-gray-500 font-medium">
+                    <span>🛡️ ระบบ Hybrid ขายได้แม้เน็ตล่ม</span>
+                    <span class="text-gray-300">|</span>
+                    <span>🇹🇭 ซัพพอร์ตคนไทย 24/7</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Pain Points Section -->
+    <section class="py-20 px-6 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl font-bold mb-6 text-gray-900">ทำไมยิ่งขายดี ยิ่งเหนื่อย?</h2>
+                    <p class="text-gray-600 mb-8 italic">เราเข้าใจปัญหาที่คุณเจอทุกวันในต่างแดน...</p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start space-x-3">
+                            <span class="text-red-500 font-bold">✕</span>
+                            <span>แท็บเล็ตล้นเคาน์เตอร์ ออเดอร์ตกหล่น สับสนยอดขาย</span>
+                        </li>
+                        <li class="flex items-start space-x-3">
+                            <span class="text-red-500 font-bold">✕</span>
+                            <span>ค่าคอมฯ เดลิเวอรีมหาโหด 30% ทำงานแทบตายกำไรไปอยู่ที่อื่นหมด</span>
+                        </li>
+                        <li class="flex items-start space-x-3">
+                            <span class="text-red-500 font-bold">✕</span>
+                            <span>พนักงานกับเชฟทะเลาะกัน เพราะอ่านตั๋วกระดาษไม่ออก</span>
+                        </li>
+                        <li class="flex items-start space-x-3">
+                            <span class="text-red-500 font-bold">✕</span>
+                            <span>คุยกับ Support ภาษาอังกฤษไม่รู้เรื่อง เวลามีปัญหาต้องรอข้ามวัน</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-gray-50 p-8 rounded-3xl border border-gray-100 shadow-inner">
+                    <div class="text-center mb-6">
+                        <h3 class="font-bold text-lg">กำไรที่คุณเสียไปกับ Marketplace</h3>
+                        <p class="text-sm text-gray-500">เปรียบเทียบออเดอร์ $100 ระหว่างแอปนอก vs L4U Direct</p>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="profitChart"></canvas>
+                    </div>
+                    <p class="mt-6 text-xs text-center text-gray-400">*คำนวณจากค่าคอมมิชชันเฉลี่ย 30% เทียบกับการสั่งตรงผ่านเว็บไซต์</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Features Section -->
+    <section id="features" class="py-20 px-6 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">"สมอง" ของร้านอาหารยุคใหม่</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">เชื่อมต่อโลกออนไลน์และหน้าร้านเข้าด้วยกันอย่างไร้รอยต่อ ทุกออเดอร์วิ่งเข้าหน้าจอเดียว ส่งตรงถึงครัวทันที</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- KDS -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
+                    <div class="text-3xl mb-4">👨‍🍳</div>
+                    <h3 class="font-bold text-xl mb-3">Kitchen Display (KDS)</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">บอกลาตั๋วกระดาษปลิวหาย ส่งออเดอร์ตรงถึงจอเชฟแม่นยำ ทำอาหารเร็วขึ้น 20% แยกสเตชั่นได้ตามใจ</p>
+                </div>
+                <!-- Delivery -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
+                    <div class="text-3xl mb-4">🛵</div>
+                    <h3 class="font-bold text-xl mb-3">Uber Direct Integration</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">เรียกไรเดอร์มืออาชีพจาก Uber มาส่งออเดอร์ร้านคุณเอง คุมค่าส่งเองได้ เงินเข้าบัญชีคุณเต็มๆ ไม่โดนหัก %</p>
+                </div>
+                <!-- Hybrid -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
+                    <div class="text-3xl mb-4">📶</div>
+                    <h3 class="font-bold text-xl mb-3">Hybrid POS Technology</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">อินเทอร์เน็ตล่มก็ขายต่อได้! ระบบทำงานแบบ Offline ได้อัตโนมัติ พร้อมออปชัน 4G Backup ให้ร้านไม่เคยหยุดขาย</p>
+                </div>
+                <!-- Inventory -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
+                    <div class="text-3xl mb-4">📦</div>
+                    <h3 class="font-bold text-xl mb-3">Inventory Real-time</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">ตัดสต็อกอัตโนมัติทุกออเดอร์ แจ้งเตือนเมื่อของใกล้หมด ลดของเสีย (Waste) ได้ถึง 15% คุมต้นทุนได้แม่นยำ</p>
+                </div>
+                <!-- Online Ordering -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
+                    <div class="text-3xl mb-4">📱</div>
+                    <h3 class="font-bold text-xl mb-3">QR & Online Ordering</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">ลูกค้าสแกนสั่งเองที่โต๊ะ หรือสั่งจากบ้านผ่านเว็บส่วนตัวของร้าน ลดภาระพนักงานช่วง Peak Hour</p>
+                </div>
+                <!-- Support -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
+                    <div class="text-3xl mb-4">💬</div>
+                    <h3 class="font-bold text-xl mb-3">Thai Support 24/7</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">ทีมงานคนไทยดูแลผ่าน Anydesk รีโมทแก้ปัญหาได้ทันที ไม่ต้องรอส่งตั๋ว ไม่ต้องง้อภาษาอังกฤษ</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section id="comparison" class="py-20 px-6 bg-white overflow-x-auto">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-12">ทำไมร้านอาหารไทยถึงย้ายมาใช้เรา?</h2>
+            <table class="w-full text-left border-collapse min-w-[600px]">
+                <thead>
+                    <tr class="border-b-2 border-gray-100">
+                        <th class="py-4 px-4 font-medium text-gray-500">คุณสมบัติ</th>
+                        <th class="py-4 px-4 font-bold text-amber-600 text-center">L4UPOS</th>
+                        <th class="py-4 px-4 font-medium text-gray-400 text-center">Cloud POS ทั่วไป</th>
+                    </tr>
+                </thead>
+                <tbody class="text-sm">
+                    <tr class="border-b border-gray-50">
+                        <td class="py-5 px-4 font-medium">ซัพพอร์ตโดยคนไทย 24/7</td>
+                        <td class="py-5 px-4 text-center text-green-600 font-bold">✅ มี (เข้าใจคนทำร้านไทย)</td>
+                        <td class="py-5 px-4 text-center text-gray-400">❌ ไม่มี</td>
+                    </tr>
+                    <tr class="border-b border-gray-50">
+                        <td class="py-5 px-4 font-medium">ระบบ Hybrid (เน็ตล่มยังขายได้)</td>
+                        <td class="py-5 px-4 text-center text-green-600 font-bold">✅ มีระบบ 4G Backup</td>
+                        <td class="py-5 px-4 text-center text-gray-400">❌ เน็ตล่มคือหยุดขาย</td>
+                    </tr>
+                    <tr class="border-b border-gray-50">
+                        <td class="py-5 px-4 font-medium">จัดการเดลิเวอรี & Uber Direct</td>
+                        <td class="py-5 px-4 text-center text-green-600 font-bold">✅ คุมค่าส่งเองได้เต็มรูปแบบ</td>
+                        <td class="py-5 px-4 text-center text-gray-400">❌ จำกัด หรือทำไม่ได้</td>
+                    </tr>
+                    <tr class="border-b border-gray-50">
+                        <td class="py-5 px-4 font-medium">Remote Support (Anydesk)</td>
+                        <td class="py-5 px-4 text-center text-green-600 font-bold">✅ แก้ไขได้ทันที</td>
+                        <td class="py-5 px-4 text-center text-gray-400">❌ ต้องรอคิวส่งตั๋ว</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20 px-6 bg-amber-50/30">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">แพ็กเกจที่เหมาะกับคุณ</h2>
+                <p class="text-gray-600">ราคาโปร่งใส ไม่มีหมกเม็ด เลือกตามขนาดร้านของคุณ</p>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-6">
+                <!-- POS Only -->
+                <div class="bg-white p-6 rounded-2xl border border-gray-200 flex flex-col">
+                    <h3 class="font-bold text-gray-900 mb-2">POS Only</h3>
+                    <div class="text-3xl font-bold mb-4">$69<span class="text-sm font-normal text-gray-500">/เดือน</span></div>
+                    <ul class="text-sm text-gray-600 space-y-3 mb-8 flex-grow">
+                        <li>• ระบบจัดการหน้าร้าน POS</li>
+                        <li>• สต็อกวัตถุดิบแม่นยำ</li>
+                        <li>• รายงานยอดขาย Real-time</li>
+                    </ul>
+                    <button onclick="scrollToContact()" class="w-full py-3 rounded-xl border border-amber-600 text-amber-600 font-bold hover:bg-amber-600 hover:text-white transition">เลือกแพ็กเกจ</button>
+                </div>
+                <!-- Online Ordering -->
+                <div class="bg-white p-6 rounded-2xl border border-gray-200 flex flex-col">
+                    <h3 class="font-bold text-gray-900 mb-2">Online Ordering</h3>
+                    <div class="text-3xl font-bold mb-4">$199<span class="text-sm font-normal text-gray-500">/เดือน</span></div>
+                    <ul class="text-sm text-gray-600 space-y-3 mb-8 flex-grow">
+                        <li>• เว็บไซต์สั่งอาหารระดับโปร</li>
+                        <li>• จัดโปรโมชั่นไม่จำกัด</li>
+                        <li>• เชื่อมต่อ GA4 / FB Pixel</li>
+                    </ul>
+                    <button onclick="scrollToContact()" class="w-full py-3 rounded-xl border border-amber-600 text-amber-600 font-bold hover:bg-amber-600 hover:text-white transition">เลือกแพ็กเกจ</button>
+                </div>
+                <!-- Popular -->
+                <div class="bg-white p-6 rounded-2xl border-2 border-amber-500 flex flex-col relative shadow-xl transform scale-105">
+                    <span class="absolute -top-4 left-1/2 -translate-x-1/2 bg-amber-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase">ยอดฮิต แนะนำ!</span>
+                    <h3 class="font-bold text-gray-900 mb-2">POS + Online</h3>
+                    <div class="text-3xl font-bold mb-4">$249<span class="text-sm font-normal text-gray-500">/เดือน</span></div>
+                    <ul class="text-sm text-gray-600 space-y-3 mb-8 flex-grow">
+                        <li class="font-semibold text-amber-700">• ทุกฟีเจอร์ของ POS & Online</li>
+                        <li>• เชื่อมต่อหน้าบ้าน-หลังบ้าน-เว็บ</li>
+                        <li>• ออเดอร์ไหลรวมในจอเดียว</li>
+                        <li>• จัดการเดลิเวอรีครบวงจร</li>
+                    </ul>
+                    <button onclick="scrollToContact()" class="w-full py-3 rounded-xl bg-amber-600 text-white font-bold hover:bg-amber-700 transition">เลือกแพ็กเกจ</button>
+                </div>
+                <!-- Full Hardware -->
+                <div class="bg-white p-6 rounded-2xl border border-gray-200 flex flex-col">
+                    <h3 class="font-bold text-gray-900 mb-2">Full Package</h3>
+                    <div class="text-3xl font-bold mb-4">$299<span class="text-sm font-normal text-gray-500">/เดือน</span></div>
+                    <p class="text-[10px] text-gray-400 mb-4">*สัญญา 24 เดือน</p>
+                    <ul class="text-sm text-gray-600 space-y-3 mb-8 flex-grow">
+                        <li>• ระบบครบวงจร (POS+Online)</li>
+                        <li>• อุปกรณ์ตัวเครื่องหน้าร้านครบ</li>
+                        <li class="text-green-600 font-bold">• แถมฟรี! Router Extension</li>
+                    </ul>
+                    <button onclick="scrollToContact()" class="w-full py-3 rounded-xl border border-amber-600 text-amber-600 font-bold hover:bg-amber-600 hover:text-white transition">เลือกแพ็กเกจ</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-20 px-6 bg-white">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-12">คำถามที่พบบ่อย (FAQ)</h2>
+            <div class="space-y-4" id="faqContainer">
+                <!-- FAQ Item 1 -->
+                <div class="border border-gray-200 rounded-xl overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left font-bold flex justify-between items-center hover:bg-gray-50 transition" onclick="toggleFaq(0)">
+                        <span>มี POS เดิมอยู่แล้ว ย้ายมายุ่งยากไหม?</span>
+                        <span id="icon-0" class="transform transition">+</span>
+                    </button>
+                    <div id="ans-0" class="hidden px-6 py-4 text-gray-600 text-sm bg-gray-50">
+                        ไม่ต้องกังวลครับ! ทีมงาน Local For You ของเราจะช่วย Setup ข้อมูล ลงเมนู และมีเซสชัน Training สอนการใช้งานให้พนักงานอย่างละเอียดก่อนเริ่มระบบจริง พนักงานใหม่เรียนรู้ได้ใน 10 นาทีครับ
+                    </div>
+                </div>
+                <!-- FAQ Item 2 -->
+                <div class="border border-gray-200 rounded-xl overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left font-bold flex justify-between items-center hover:bg-gray-50 transition" onclick="toggleFaq(1)">
+                        <span>อินเทอร์เน็ตที่ร้านล่มบ่อย ระบบจะทำงานได้ไหม?</span>
+                        <span id="icon-1" class="transform transition">+</span>
+                    </button>
+                    <div id="ans-1" class="hidden px-6 py-4 text-gray-600 text-sm bg-gray-50">
+                        นี่คือจุดแข็งของเราครับ L4UPOS เป็น Hybrid POS แม้อินเทอร์เน็ตจะตัดขาด ระบบก็ยังขายของหน้าร้านต่อได้ตามปกติ และเรายังมีออปชันเสริมเป็น 4G Backup เพื่อล็อกระบบให้ออนไลน์ตลอดเวลา ร้านคุณไม่มีวันหยุดขายแน่นอนครับ
+                    </div>
+                </div>
+                <!-- FAQ Item 3 -->
+                <div class="border border-gray-200 rounded-xl overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left font-bold flex justify-between items-center hover:bg-gray-50 transition" onclick="toggleFaq(2)">
+                        <span>ไม่อยากจ้างไรเดอร์ส่งเอง ระบบช่วยอะไรได้บ้าง?</span>
+                        <span id="icon-2" class="transform transition">+</span>
+                    </button>
+                    <div id="ans-2" class="hidden px-6 py-4 text-gray-600 text-sm bg-gray-50">
+                        เราเชื่อมกับ Uber Direct ให้ทันทีครับ คุณสามารถกดเรียกไรเดอร์มืออาชีพมารับอาหารถึงร้านไปส่งลูกค้าได้อัตโนมัติ โดยที่ระบบโอนยอดค่าส่งไปหักที่ลูกค้าปลายทางได้เลย ร้านไม่ต้องควักเนื้อจ่ายเอง และเงินค่าอาหารเข้าคุณเต็มๆ ครับ
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section id="contact" class="py-20 px-6 bg-gray-900 text-white">
+        <div class="max-w-4xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <h2 class="text-3xl font-bold mb-6">เริ่มสร้างกำไร<br>ให้ร้านของคุณวันนี้</h2>
+                    <p class="text-gray-400 mb-8 leading-relaxed">
+                        ให้ระบบของเราช่วยดูแลความวุ่นวายหลังบ้าน เพื่อให้คุณมีเวลาดูแลลูกค้าและคิดเมนูใหม่ๆ ได้อย่างเต็มที่
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-amber-500">✓</span>
+                            <span>ประเมินความคุ้มค่าให้ฟรี</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="text-amber-500">✓</span>
+                            <span>สาธิตระบบผ่านออนไลน์ (Demo)</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="text-amber-500">✓</span>
+                            <span>ไม่มีข้อผูกมัดจนกว่าคุณจะพอใจ</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-3xl text-gray-900">
+                    <form id="leadForm" onsubmit="handleForm(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-400 mb-1">ชื่อร้านอาหาร</label>
+                            <input type="text" required class="w-full p-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-amber-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-400 mb-1">ประเทศที่ตั้งร้าน</label>
+                            <select class="w-full p-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-amber-500 outline-none">
+                                <option>ออสเตรเลีย (Australia)</option>
+                                <option>สหรัฐอเมริกา (USA)</option>
+                                <option>สหราชอาณาจักร (UK)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-400 mb-1">เบอร์โทรศัพท์</label>
+                            <input type="tel" required class="w-full p-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-amber-500 outline-none">
+                        </div>
+                        <button type="submit" class="w-full py-4 bg-amber-600 text-white font-bold rounded-xl hover:bg-amber-700 transition shadow-lg">ขอรับ Demo และปรึกษาฟรี</button>
+                    </form>
+                    <div id="successMsg" class="hidden text-center text-green-600 font-bold mt-4">
+                        ขอบคุณครับ! ทีมงานจะติดต่อกลับโดยเร็วที่สุด
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-10 px-6 bg-gray-900 text-gray-500 border-t border-gray-800 text-center text-sm">
+        <p>© 2026 Local For You POS - Empowering Thai Restaurants Abroad.</p>
+    </footer>
+
+    <script>
+        // Data Visualization: Profit Comparison
+        const ctx = document.getElementById('profitChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Marketplace App', 'L4U Direct Order'],
+                datasets: [{
+                    label: 'กำไรที่ร้านได้รับ ($)',
+                    data: [70, 98.25], // Calculated from $100 - 30% comm vs $100 - 1.75% fee
+                    backgroundColor: ['#f87171', '#fbbf24'],
+                    borderRadius: 8,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: { beginAtZero: true, max: 110, ticks: { callback: v => '$' + v } }
+                }
+            }
+        });
+
+        // FAQ Toggle Logic
+        function toggleFaq(index) {
+            const ans = document.getElementById(`ans-${index}`);
+            const icon = document.getElementById(`icon-${index}`);
+            const isHidden = ans.classList.contains('hidden');
+            
+            // Close all
+            for(let i=0; i<3; i++) {
+                document.getElementById(`ans-${i}`).classList.add('hidden');
+                document.getElementById(`icon-${i}`).innerText = '+';
+                document.getElementById(`icon-${i}`).style.transform = 'rotate(0deg)';
+            }
+
+            if(isHidden) {
+                ans.classList.remove('hidden');
+                icon.innerText = '−';
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        // Navigation
+        function scrollToContact() {
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Form Handling
+        function handleForm(e) {
+            e.preventDefault();
+            document.getElementById('leadForm').classList.add('hidden');
+            document.getElementById('successMsg').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
